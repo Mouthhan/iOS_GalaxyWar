@@ -20,19 +20,24 @@ class HelloScene: SKScene {
         bgd.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         bgd.zPosition = -1
         
-        let hellolabel = SKLabelNode(text: "🚀Space AdventureV🚀")
-        hellolabel.name = "label"
-        hellolabel.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        hellolabel.fontName = "Avenir-Oblique"
-        hellolabel.fontSize = 28
-        
+        let title = SKSpriteNode(imageNamed: "title.png")
+        title.name = "title"
+        title.size = CGSize(width: 300, height: 60)
+        title.position = CGPoint(x: self.frame.midX, y: self.frame.midY + 100)
+        let start = SKSpriteNode(imageNamed: "pressstart.png")
+        start.size = CGSize(width: 200, height: 40)
+        start.position = CGPoint(x: self.frame.midX, y: self.frame.midY - 100)
+        let blink = SKAction.sequence([SKAction.fadeOut(withDuration: 0.5),SKAction.fadeIn(withDuration: 0.5)])
+        let blinkForever = SKAction.repeatForever(blink)
+        start.run(blinkForever)
         self.addChild(bgd)
-        self.addChild(hellolabel)
+        self.addChild(title)
+        self.addChild(start)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event:UIEvent?){
-        let labelNode = self.childNode(withName: "label")
-        let moveup = SKAction.moveBy(x: 0, y: 230, duration: 0.75)
+        let labelNode = self.childNode(withName: "title")
+        let moveup = SKAction.moveBy(x: 0, y: 70, duration: 0.75)
         //let span = SKAction.rotate(byAngle: 2500, duration: 0.4)
         let zoomin = SKAction.scale(to: 1.3, duration: 1)
         let pause = SKAction.wait(forDuration: 0.5)
